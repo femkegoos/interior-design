@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: 64,
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontSize: 32,
+        fontFamily: 'BlackMango',
         marginTop: 16,
     },
     switchContainer: {
