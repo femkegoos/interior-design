@@ -4,6 +4,8 @@ import { createStackNavigator} from '@react-navigation/stack';
 import { useFonts } from 'expo-font'; 
 import HomeScreen from './screens/HomeScreen';
 import ProductDetail from './screens/ProductDetail';
+import BlogScreen from './screens/BlogScreen';
+import BlogDetail from './screens/BlogDetail';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +32,8 @@ export default function App() {
     },
   }}>
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="BlogScreen" component={BlogScreen} />
+        <Stack.Screen name="BlogDetail" component={BlogDetail} />
         <Stack.Screen name="ProductDetail" component={ProductDetail} />
       </Stack.Navigator>
     </NavigationContainer>
