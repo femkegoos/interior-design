@@ -1,5 +1,6 @@
 import { ScrollView, TextInput, StyleSheet, Text, View, Switch } from 'react-native';
 import ProductCard from '../components/ProductCards';
+import BlogCard from '../components/BlogCards';
 import { useState } from 'react';
 
 
@@ -17,13 +18,26 @@ const HomeScreen = () => {
       <ProductCard />
       <ProductCard />
       <ProductCard />
+
+      <Text style={styles.title}>Blogs</Text>
+        <TextInput style={styles.searchInput} placeholder="Search for Blogs..." />
+        //Hier moet nog een filter komen met categoerieen
+        <View style={styles.switchContainer}>
+            <Text>Show only the promotions</Text>
+            <Switch value={promotions} onValueChange={(value)=> setPromotions(value)} trackColor={{ false: 'rgba(122, 90, 69, 0.1)', true: '#7a5a45' }} thumbColor={promotions ? '#fff' : '#fff'} />
+        </View>
+        //
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     padding: 16,

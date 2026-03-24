@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default BlogCard$;
+export default BlogCard;
