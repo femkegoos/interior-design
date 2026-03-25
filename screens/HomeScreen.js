@@ -1,7 +1,7 @@
 import { ScrollView, TextInput, StyleSheet, Text, View, Switch } from 'react-native';
 import ProductCard from '../components/ProductCards';
 import BlogCard from '../components/BlogCards';
-import { use, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Picker } from '@react-native-picker/picker';
 
 const categoryNames = {
@@ -14,33 +14,37 @@ const categoryNames = {
   "69a18e417b4183b1647333d4": "Table",
 };
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [promotions, setPromotions] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
   useEffect(() => {
+    
     fetch('https://api.webflow.com/v2/sites/698c804589fbd9b11ec2568a/products'
       , {
         headers: {
           Authorization: 'Bearer bc1861a6097c6af1198797c140ec9e68c66f7caafe9ed9e7be504ba991b36f52',
         },
       })
+      
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.items.map((item) => ({
           id: item.product.id,
           title: item.product.fieldData.name,
           price: (item.skus[0]?.fieldData.price.value || 0) / 100,
-          image: { url: item.skus[0]?.fieldData["main-image"]?.url },
+          image: { uri: item.skus[0]?.fieldData["main-image"]?.uri },
           category : categoryNames[item.product.fieldData.category[0]] || "Unknown",
         })),
         );
       })
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
-  const filteredProducts = products.filter((p) =>(selectedCategory === "" || p.category === selectedCategory) && p.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  const filteredProducts = products.filter((p) =>
+    (selectedCategory === "" || p.category === selectedCategory) 
+  && p.title.toLowerCase().includes(searchQuery.toLowerCase()) && (!promotions || p.price < 100)
   ); 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOption === "price-asc") {
@@ -82,7 +86,7 @@ const HomeScreen = () => {
         <Text>Show only the promotions</Text>
         <Switch value={promotions} onValueChange={(value) => setPromotions(value)} trackColor={{ false: 'rgba(122, 90, 69, 0.1)', true: '#7a5a45' }} thumbColor={promotions ? '#fff' : '#fff'} />
       </View>
-      {filteredProducts.map((product) => (
+      {sortedProducts.map((product) => (
         <ProductCard key={product.id} title={product.title} price={product.price} image={product.image} onPress={() => navigation.navigate('ProductDetail', product)} />
       ))}
 
