@@ -25,7 +25,7 @@ function HomeStack() {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
 
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen}  options={{ headerShown: false }} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="BlogDetail" component={BlogDetail} />
     </Stack.Navigator>
@@ -44,15 +44,24 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: '#7a5a45',
-          tabBarInactiveTintColor: 'rgba(122, 90, 69, 0.5)',
+          headerShown: false,
+          tabBarShowIcon: false,
+          tabBarActiveTintColor: '#fff',
+          tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.7)',
           tabBarStyle: {
-            backgroundColor: '#fff',
-            borderTopColor: 'rgba(122, 90, 69, 0.1)',
+            backgroundColor: '#7a5a45',
+            borderTopColor: '#7a5a45',
+            paddingBottom: 8,
+            height: 72,
           },
-          HeaderShown: false,
+          tabBarLabelStyle: {
+            fontSize: 14,
+            fontFamily: 'BlackMango',
+            fontSize: 18,
+            marginTop: -15,
+          },
         }}>
-        <Tab.Screen name="Shop" component={HomeStack} />
+        <Tab.Screen name="Shop" component={HomeStack} options={{tabBarIcon: ()=> null,}} />
       </Tab.Navigator>
     </NavigationContainer>
   );
