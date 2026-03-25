@@ -21,12 +21,12 @@ const HomeScreen = () => {
 
       <Text style={styles.title}>Blogs</Text>
         <TextInput style={styles.searchInput} placeholder="Search for Blogs..." />
-        //Hier moet nog een filter komen met categoerieen
+        
         <View style={styles.switchContainer}>
             <Text>Show only the promotions</Text>
             <Switch value={promotions} onValueChange={(value)=> setPromotions(value)} trackColor={{ false: 'rgba(122, 90, 69, 0.1)', true: '#7a5a45' }} thumbColor={promotions ? '#fff' : '#fff'} />
         </View>
-        //
+        
       <BlogCard />
       <BlogCard />
       <BlogCard />
