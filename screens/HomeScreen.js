@@ -18,6 +18,8 @@ const HomeScreen = () => {
   const [promotions, setPromotions] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState("");
   useEffect(() => {
     fetch('https://api.webflow.com/v2/sites/698c804589fbd9b11ec2568a/products'
       , {
@@ -38,9 +40,23 @@ const HomeScreen = () => {
       })
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
-  const filteredProducts = selectedCategory 
-  ? products.filter((product) => product.category === selectedCategory)
-  : products;
+  const filteredProducts = products.filter((p) =>(selectedCategory === "" || p.category === selectedCategory) && p.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  ); 
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOption === "price-asc") {
+      return a.price - b.price;
+    }
+    if (sortOption === "price-desc") {
+      return b.price - a.price;
+    }
+    if (sortOption === "name-asc") {
+      return a.title.localeCompare(b.title);
+    }
+    if (sortOption === "name-desc") {
+      return b.title.localeCompare(a.title);
+    }
+    return 0;
+  });
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Shop</Text>
@@ -53,7 +69,15 @@ const HomeScreen = () => {
         <Picker.Item label="Dining chair" value="Dining chair" />
         <Picker.Item label="Table" value="Table" />
       </Picker>
-      <TextInput style={styles.searchInput} placeholder="Search for products..." />
+
+      <Picker selectedValue={sortOption} onValueChange={setSortOption} style={styles.picker}>
+        <Picker.Item label="Filter" value="" />
+        <Picker.Item label="Price: Low to High" value="price-asc" />
+        <Picker.Item label="Price: High to Low" value="price-desc" />
+        <Picker.Item label="Name: A to Z" value="name-asc" />
+        <Picker.Item label="Name: Z to A" value="name-desc" />
+      </Picker>
+      <TextInput style={styles.searchInput} placeholder="Search for products..." value={searchQuery} onChangeText={setSearchQuery} />
       <View style={styles.switchContainer}>
         <Text>Show only the promotions</Text>
         <Switch value={promotions} onValueChange={(value) => setPromotions(value)} trackColor={{ false: 'rgba(122, 90, 69, 0.1)', true: '#7a5a45' }} thumbColor={promotions ? '#fff' : '#fff'} />
