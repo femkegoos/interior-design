@@ -20,8 +20,11 @@ const HomeScreen = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const [blogs, setBlogs] = useState([]);
+  const [blogSearchQuery, setBlogSearchQuery] = useState("");
+
   useEffect(() => {
-    
+  Promise.all([
     fetch('https://api.webflow.com/v2/sites/698c804589fbd9b11ec2568a/products'
       , {
         headers: {
@@ -29,9 +32,19 @@ const HomeScreen = ({ navigation }) => {
         },
       })
       
+      .then((response) => response.json()),
+          fetch('https://api.webflow.com/v2/sites/698c804589fbd9b11ec2568a/collections/699ef91e298c1a70e7fb1abd/items'
+      , {
+        headers: {
+          Authorization: 'Bearer bc1861a6097c6af1198797c140ec9e68c66f7caafe9ed9e7be504ba991b36f52',
+        },
+      })
+      
       .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.items.map((item) => ({
+      ])
+      .then(([productData, blogData]) => { 
+        
+        setProducts(productData.items.map((item) => ({
           id: item.product.id,
           title: item.product.fieldData.name,
           price: (item.skus[0]?.fieldData.price.value || 0) / 100,
@@ -39,6 +52,13 @@ const HomeScreen = ({ navigation }) => {
           category : categoryNames[item.product.fieldData.category[0]] || "Unknown",
         })),
         );
+        setBlogs(blogData.items.map((item) => ({
+          id: item.id,
+          title: item.fieldData.name,
+          description: item.fieldData.description,
+          date: item.fieldData.date,
+          image: { uri: item.fieldData["main-image"]?.url },
+        })));
       })
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
