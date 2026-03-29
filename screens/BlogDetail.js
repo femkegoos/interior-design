@@ -2,15 +2,16 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
 
 
-const BlogDetail = () => {
-    
+const BlogDetail = ({ route }) => {
+
+    const { title, description, date, content, image } = route.params;
+
   return (
     <ScrollView style={styles.container}>
-        <Image source={require("../img/Brown_chair_interior_design.jpg")} style={styles.image} />
-        <Text style={styles.title}>Blog titel</Text>
-        <Text style={styles.description}>This is a description.</Text>
-        <Text style={styles.date}>5 march 2026</Text>
-        <Text style={styles.content}>This is the content of the blog post. The detail of the blog post. </Text>
+        <Image source={{ uri: image?.uri}} style={styles.image} />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.content}>{content}</Text>
        
     </ScrollView>
   );
@@ -24,8 +25,9 @@ const styles = StyleSheet.create({
   },
     image: {
         width: "100%",
-        height: 250,
+        height: 300,
         borderRadius: 8,
+        resizeMode: 'cover',
     },
     title: {
         fontSize: 24,

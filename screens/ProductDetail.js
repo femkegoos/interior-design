@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
 
 
-const ProductDetail = () => {
+const ProductDetail = ({ route }) => {
+    const { title, description, price, image } = route.params;
     const [quantity, setQuantity] = useState(1);
 
     const increaseQuantity = () => setQuantity(quantity + 1);
@@ -15,10 +16,10 @@ const ProductDetail = () => {
 
   return (
     <ScrollView style={styles.container}>
-        <Image source={require("../img/Brown_chair_interior_design.jpg")} style={styles.image} />
-        <Text style={styles.title}>Lounge chair</Text>
-        <Text style={styles.description}>This is a description.</Text>
-        <Text style={styles.price}>199,99</Text>
+        <Image source={image?.uri ? image : require("../img/Brown_chair_interior_design.jpg")} style={styles.image} />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        <Text style={styles.price}>€{price.toFixed(2)}</Text>
         <View style={styles.quantityContainer}>
             <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
                 <Text style={styles.quantityButtonText}>-</Text>
@@ -28,7 +29,7 @@ const ProductDetail = () => {
                 <Text style={styles.quantityButtonText}>+</Text>
             </TouchableOpacity>
         </View>
-        <Text style={styles.totalPrice}>Total: {199.99 * quantity}</Text>
+        <Text style={styles.totalPrice}>Total: €{(price * quantity).toFixed(2)}</Text>
         <Button title="Add to Cart" onPress={() => alert('Added to cart!')} color="#7a5a45" />
     </ScrollView>
   );
@@ -42,8 +43,9 @@ const styles = StyleSheet.create({
   },
     image: {
         width: "100%",
-        height: 250,
+        height: 300,
         borderRadius: 8,
+        resizeMode: 'cover',
     },
     title: {
         fontSize: 24,

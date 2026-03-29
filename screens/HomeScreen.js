@@ -21,7 +21,6 @@ const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
   const [blogs, setBlogs] = useState([]);
-  const [blogSearchQuery, setBlogSearchQuery] = useState("");
 
   useEffect(() => {
   Promise.all([
@@ -55,8 +54,9 @@ const HomeScreen = ({ navigation }) => {
         setBlogs(blogData.items.map((item) => ({
           id: item.id,
           title: item.fieldData.name,
-          description: item.fieldData.description,
-          date: item.fieldData.date,
+          description: item.fieldData["post-summary"] || "",
+          content: item.fieldData["post-body"] || "",
+          date: item.fieldData.date ? new Date(item.fieldData.date).toLocaleDateString() : "",
           image: { uri: item.fieldData["main-image"]?.url },
         })));
       })
@@ -112,16 +112,11 @@ const HomeScreen = ({ navigation }) => {
 
 
       <Text style={styles.title}>Blogs</Text>
-      <TextInput style={styles.searchInput} placeholder="Search for Blogs..." />
 
-      <View style={styles.switchContainer}>
-        <Text>Show only the promotions</Text>
-        <Switch value={promotions} onValueChange={(value) => setPromotions(value)} trackColor={{ false: 'rgba(122, 90, 69, 0.1)', true: '#7a5a45' }} thumbColor={promotions ? '#fff' : '#fff'} />
-      </View>
 
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
+      {blogs.map((blog) => (
+        <BlogCard key={blog.id} title={blog.title} description={blog.description} date={blog.date} image={blog.image} onPress={() => navigation.navigate('BlogDetail', blog)} />
+      ))}
 
     </ScrollView>
   );

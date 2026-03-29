@@ -8,7 +8,6 @@ const ProductCard = ({ title, price, image, onPress }) => {
         <View style={styles.card}>
             <Image source={image?.uri ? image : require('../img/Brown_chair_interior_design.jpg')} style={styles.image} />
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>This is a description.</Text>
             <Text style={styles.price}>€{price.toFixed(2)}</Text>
             <TouchableOpacity style={styles.button} onPress={onPress}>
                 <Text style={styles.buttonText}>View Details</Text>
