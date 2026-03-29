@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
           id: item.product.id,
           title: item.product.fieldData.name,
           price: (item.skus[0]?.fieldData.price.value || 0) / 100,
-          image: { uri: item.skus[0]?.fieldData["main-image"]?.uri },
+          image: { uri: item.skus[0]?.fieldData["main-image"]?.url },
           category : categoryNames[item.product.fieldData.category[0]] || "Unknown",
         })),
         );
@@ -86,12 +86,9 @@ const HomeScreen = ({ navigation }) => {
         <Text>Show only the promotions</Text>
         <Switch value={promotions} onValueChange={(value) => setPromotions(value)} trackColor={{ false: 'rgba(122, 90, 69, 0.1)', true: '#7a5a45' }} thumbColor={promotions ? '#fff' : '#fff'} />
       </View>
-     {sortedProducts.map((product) => (
-  <View key={product.id}>
-    <Text>{product.title}</Text>
-    <Text>{product.price}</Text>
-  </View>
-))}
+      {sortedProducts.map((product) => (
+        <ProductCard key={product.id} title={product.title} price={product.price} image={product.image} onPress={() => navigation.navigate('ProductDetail', product)} />
+      ))}
 
 
       <Text style={styles.title}>Blogs</Text>
