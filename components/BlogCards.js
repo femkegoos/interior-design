@@ -2,15 +2,15 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const BlogCard = () => {
+const BlogCard = ({ title, description, date, image, onPress}) => {
     const navigation = useNavigation();
     return (
         <View style={styles.card}>
-            <Image source={require("../img/Brown_chair_interior_design.jpg")} style={styles.image} />
-            <Text style={styles.title}>Blog titel</Text>
-            <Text style={styles.description}>This is a description.</Text>
-            <Text style={styles.date}>24/03/2026</Text>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('BlogDetail')}>
+            <Image source={image?.uri ? image : require('../img/Brown_chair_interior_design.jpg')} style={styles.image} />
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.description}>{description}</Text>
+            <Text style={styles.date}>{date}</Text>
+            <TouchableOpacity style={styles.button} onPress={onPress}>
                 <Text style={styles.buttonText}>Lees meer</Text>
             </TouchableOpacity>
         </View>
