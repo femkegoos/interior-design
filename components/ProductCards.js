@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#fff',
         borderRadius: 8,
-        marginBottom:16,
+        marginBottom:21,
         elevation: 5,
     },
     image: {
@@ -33,17 +33,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 8,
-    },
-    description: {
-        fontSize: 16,
-        color: '#555',
-        marginTop: 4,
+        marginTop: 12,
     },
     price: {
         fontSize: 16,
         fontWeight: 'bold',
-        marginTop: 4,
+        marginTop: 8,
         color: '#7a5a45',
     },
     button: {
@@ -51,7 +46,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: 8,
+        marginTop: 18,
     },
     buttonText: {
         color: '#fff',

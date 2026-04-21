@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 16,
         lineHeight: 24,
+        marginBottom: 64,
     },
 });
 

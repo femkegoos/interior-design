@@ -6,7 +6,7 @@ const BlogCard = ({ title, description, date, image, onPress}) => {
     const navigation = useNavigation();
     return (
         <View style={styles.card}>
-            <Image source={image?.uri ? { uri: image.uri } : require('../img/Brown_chair_interior_design.jpg')} style={styles.image} />
+            <Image source={image} style={styles.image} />
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.description}>{description}</Text>
             <Text style={styles.date}>{date}</Text>
@@ -37,15 +37,16 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
     description: {
-        fontSize: 16,
+        fontSize: 12,
         color: '#555',
-        marginTop: 4,
+        marginTop: 8,
     },
     date: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 'bold',
-        marginTop: 4,
+        marginTop: 12,
         color: '#7a5a45',
+        marginBottom: 8,
     },
     button: {
         backgroundColor: '#7a5a45',

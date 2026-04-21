@@ -66,11 +66,15 @@ const styles = StyleSheet.create({
     quantityContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 16,
+        marginTop: 24,
     },
     quantityButton: {
         backgroundColor: '#7a5a45',
-        padding: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+
         borderRadius: 5,
     },
     quantityButtonText: {
@@ -81,11 +85,13 @@ const styles = StyleSheet.create({
     quantity: {
         fontSize: 18,
         marginHorizontal: 16,
+        fontWeight: 'bold',
     },
     totalPrice: {
         fontSize: 18,
         fontWeight: 'bold',
         marginTop: 16,
+        marginBottom: 16,
     },
     addToCartButtonText: {
         color: '#fff',
