@@ -62,6 +62,7 @@ export default function App() {
           },
         }}>
         <Tab.Screen name="Shop" component={HomeStack} options={{tabBarIcon: ()=> null,}} />
+           <Tab.Screen name="Blogs" component={HomeStack} options={{tabBarIcon: ()=> null,}} />
       </Tab.Navigator>
     </NavigationContainer>
   );
